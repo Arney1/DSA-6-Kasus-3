@@ -19,11 +19,6 @@ int main() {
   createQueue(&q1);
   createQueue(&q2);
 
-  // address newNode;
-  // Create_Node(&newNode);
-  // Isi_Node(&newNode, NbElmt(q1));
-  // Enqueue(&q1, newNode);
-
   int queueCount = 2;
   Queue q[] = {q1, q2};
   while (isRunning) {
@@ -32,16 +27,6 @@ int main() {
     scanf("%d", &a);
     tab[a - 1](q, queueCount);
   }
-  // int n;
-  // // address newNode;
-  // Queue q;
-  // createQueue(&q);
-  // printf("Masukkan Angka: ");
-  // scanf("%d", &n);
-  // // turnIntoBinary(n, &q);
-  // Tampil_List(q);
-  // // popAllAndPrint(&q);
-  // Tampil_List(q);
 
   return 0;
 }
@@ -68,19 +53,31 @@ void pickQueue(Queue q[], int queueCount) {
 void processQueue(Queue q[], int queueCount) {
   clearTerminal();
   Queue *selected = pickWhichQueue(q, queueCount);
-  infotype X;
-  Dequeue(selected, &X);
+  bool dequed = false;
+  infotype X, next;
+  if (!isEmpty(*selected)) {
+    Dequeue(selected, &X);
+    dequed = true;
+  }
   bool isRunning = true;
   while (isRunning) {
-    printf("Diproses: %d\n", X);
-    printf("Up next: %d\n", (*selected)->info);
+    if (dequed) {
+
+      printf("Diproses: %d\n", X);
+      if (!isEmpty(*selected)) {
+
+        printf("Up next: %d\n", (*selected)->info);
+      }
+    } else {
+      printf("Tidak ada antrian..\n");
+    }
     char a;
-        printf("Input q untuk keluar... \n");
-        getchar();
-        scanf("%c", &a);
-        if (a == 'q') {
-          isRunning = false;
-        }
+    printf("Input q untuk keluar... \n");
+    getchar();
+    scanf("%c", &a);
+    if (a == 'q') {
+      isRunning = false;
+    }
   }
 }
 void printAllQueue(Queue q[], int queueCount) {
@@ -102,6 +99,7 @@ void printAllQueue(Queue q[], int queueCount) {
 
 void clearTerminal() { system("clear"); }
 void exitApp(Queue q[], int queueCount) {
+  clearTerminal();
   for (int i = 0; i < queueCount; i++) {
     DeAlokasi(&q[i]);
   }
@@ -109,6 +107,7 @@ void exitApp(Queue q[], int queueCount) {
 }
 void printMenu() {
   clearTerminal();
+  printf("[APLIKASI TELLER BANK]\n");
   printf("1. Ambil Nomer Antrian\n");
   printf("2. Proses Antrian\n");
   printf("3. Cetak Antrian\n");
