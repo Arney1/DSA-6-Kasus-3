@@ -15,12 +15,14 @@ int main() {
   bool isRunning = true;
   void (*tab[])(Queue q[], int queueCount) = {pickQueue, processQueue,
                                               printAllQueue, exitApp};
-  Queue q1, q2;
-  createQueue(&q1);
-  createQueue(&q2);
 
-  int queueCount = 2;
-  Queue q[] = {q1, q2};
+  int queueCount;
+  printf("Banyak Antrian: ");
+  scanf("%d", &queueCount);
+  Queue q[queueCount];
+  for (int i = 0; i < queueCount; i++) {
+      createQueue(&q[i]);
+  }
   while (isRunning) {
     int a;
     printMenu();
