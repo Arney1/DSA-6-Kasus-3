@@ -46,8 +46,16 @@ void pickQueue(Queue q[], int queueCount) {
   address newNode;
   Queue *selected = pickWhichQueue(q, queueCount);
   // printf("%d, %d", selected, q[0]);
+  infotype now = 0;
+  if (!isEmpty(*selected)) {
+      Queue temp = *selected;
+      while (!isEmpty(temp->next)) {
+          temp = temp->next;
+      }
+      now = temp->info;
+  }
   Create_Node(&newNode);
-  Isi_Node(&newNode, NbElmt(*selected));
+  Isi_Node(&newNode, now+1);
   Enqueue(selected, newNode);
 }
 void processQueue(Queue q[], int queueCount) {
